@@ -1,103 +1,129 @@
-import Image from "next/image";
+// "use client";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+// import { useEffect, useState } from "react";
+import ClientPokemonList from "./PokemonList";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+export default async function PokemonPage() {
+  const res = await fetch(
+    "https://pokeapi.co/api/v2/pokemon?offset=0&limit=10"
   );
+  const data = await res.json();
+  console.log(data);
+
+  return <ClientPokemonList initialData={data} />;
 }
+
+// type Pokemon = {
+//   name: string;
+//   url: string;
+// };
+
+// type PokeAPIResponse = {
+//   count: number;
+//   next: string | null;
+//   previous: string | null;
+//   results: Pokemon[];
+// };
+
+// export default function PokemonList() {
+//   const [data, setData] = useState<PokeAPIResponse | null>(null);
+//   const [offset, setOffset] = useState(0);
+//   const [limit, setLimit] = useState(10);
+//   const [loading, setLoading] = useState(true);
+
+//   const fetchUrl = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
+
+//   useEffect(() => {
+//     setLoading(true);
+//     fetch(fetchUrl)
+//       .then((res) => res.json())
+//       .then((json) => {
+//         setData(json);
+//         setLoading(false);
+//       });
+//   }, [fetchUrl]);
+
+//   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+//     const newLimit = parseInt(e.target.value, 10);
+//     setLimit(newLimit);
+//     setOffset(0);
+//   };
+
+//   return (
+//     <div className="p-4 max-w-6xl mx-auto">
+//       <h1 className="text-2xl font-bold mb-6 text-center">Pokemon List</h1>
+
+//       <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-2">
+//         <label htmlFor="limit" className="font-medium">
+//           Per page:
+//         </label>
+//         <select
+//           id="limit"
+//           value={limit}
+//           onChange={handleLimitChange}
+//           className="p-2 border rounded w-full sm:w-auto"
+//         >
+//           {[10, 20, 30].map((num) => (
+//             <option key={num} value={num}>
+//               {num}
+//             </option>
+//           ))}
+//         </select>
+//       </div>
+
+//       {loading && <p className="text-center text-gray-600">Loading...</p>}
+
+//       {!loading && data && (
+//         <>
+//           <div className="grid grid-cols-5 gap-6">
+//             {data.results.map((pokemon) => {
+//               const id = pokemon.url.split("/").filter(Number);
+//               const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
+//               return (
+//                 <div
+//                   key={pokemon.name}
+//                   className="bg-white border rounded-xl shadow-sm p-4 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl text-center capitalize"
+//                 >
+//                   <img
+//                     src={imageUrl}
+//                     alt={pokemon.name}
+//                     className="mx-auto mb-2 w-24 h-24 transition-transform duration-300 ease-in-out transform hover:scale-125"
+//                   />
+//                   <h2 className="text-lg font-semibold">{pokemon.name}</h2>
+//                 </div>
+//               );
+//             })}
+//           </div>
+
+//           {/* pagination */}
+//           <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-2">
+//             <button
+//               onClick={() => setOffset(0)}
+//               disabled={!data.previous}
+//               className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+//             >
+//               First
+//             </button>
+//             <div className="flex gap-2">
+//               <button
+//                 onClick={() => setOffset(Math.max(0, offset - limit))}
+//                 disabled={!data.previous}
+//                 className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+//               >
+//                 Previous
+//               </button>
+//               <button
+//                 onClick={() => setOffset(offset + limit)}
+//                 disabled={!data.next}
+//                 className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+//               >
+//                 Next
+//               </button>
+//             </div>
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   );
+// }
