@@ -1,7 +1,7 @@
 // "use client";
 
 // import { useEffect, useState } from "react";
-import ClientPokemonList from "./PokemonList";
+import ClientPokemonList from "./pokemon-list";
 
 export default async function PokemonPage() {
   const res = await fetch(

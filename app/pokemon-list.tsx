@@ -34,7 +34,7 @@ export default function ClientPokemonList({
     if (!(offset === 0 && limit === 10)) {
       fetchData();
     } else {
-      setData(initialData); // fallback biar kembali ke data awal dari server
+      setData(initialData);
     }
   }, [offset, limit]);
 
@@ -67,7 +67,11 @@ export default function ClientPokemonList({
         </select>
       </div>
 
-      {loading && <p className="text-center text-gray-600">Loading...</p>}
+      {loading && (
+        <div className="flex justify-center items-center">
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
 
       {!loading && data && (
         <>
