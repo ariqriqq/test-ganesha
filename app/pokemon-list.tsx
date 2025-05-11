@@ -46,25 +46,9 @@ export default function ClientPokemonList({
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center">Pokemon List</h1>
-
-      <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-2">
-        <label htmlFor="limit" className="font-medium">
-          Per page:
-        </label>
-        <select
-          id="limit"
-          value={limit}
-          onChange={handleLimitChange}
-          className="p-2 border rounded w-full sm:w-auto"
-        >
-          {[10, 20, 30].map((num) => (
-            <option key={num} value={num}>
-              {num}
-            </option>
-          ))}
-        </select>
-      </div>
+      <h1 className="text-2xl font-bold mb-6 text-center border-2 rounded-full">
+        Pokemon List
+      </h1>
 
       {loading && (
         <div className="flex justify-center items-center">
@@ -74,7 +58,7 @@ export default function ClientPokemonList({
 
       {!loading && data && (
         <>
-          <div className="grid grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {data.results.map((pokemon) => {
               const id = pokemon.url.split("/").filter(Number);
               const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
@@ -84,38 +68,61 @@ export default function ClientPokemonList({
                   key={pokemon.name}
                   className="bg-white border rounded-xl shadow-sm p-4 hover:shadow-lg transition-all duration-500 ease-in-out transform hover:scale-105 hover:shadow-2xl text-center capitalize"
                 >
-                  <img
-                    src={imageUrl}
-                    alt={pokemon.name}
-                    className="mx-auto mb-2 w-24 h-24 transition-transform duration-300 ease-in-out transform hover:scale-125"
-                  />
-                  <h2 className="text-lg font-semibold">{pokemon.name}</h2>
+                  <div className="flex-1 flex flex-col items-center">
+                    <img
+                      src={imageUrl}
+                      alt={pokemon.name}
+                      className="mx-auto mb-2 w-24 h-24 transition-transform duration-300 ease-in-out transform hover:scale-125"
+                    />
+                  </div>
+                  <footer className="mt-2 w-full border-t pt-2">
+                    <h2 className="text-lg font-semibold">{pokemon.name}</h2>
+                  </footer>
                 </div>
               );
             })}
           </div>
 
           {/* pagination */}
+
           <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-2">
-            <button
-              onClick={() => setOffset(0)}
-              disabled={!data.previous}
-              className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-            >
-              First
-            </button>
+            <div className="flex gap-2 mb-5">
+              <label htmlFor="limit" className="font-medium">
+                Per page:
+              </label>
+              <select
+                id="limit"
+                value={limit}
+                onChange={handleLimitChange}
+                className="p-2 border rounded w-full sm:w-auto"
+              >
+                {[10, 20, 30].map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={() => setOffset(0)}
+                disabled={!data.previous}
+                className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50 hover:bg-blue-400 hover:text-white hover:shadow-lg"
+              >
+                First
+              </button>
+            </div>
+
             <div className="flex gap-2">
               <button
                 onClick={() => setOffset(Math.max(0, offset - limit))}
                 disabled={!data.previous}
-                className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+                className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50 hover:bg-blue-400 hover:text-white hover:shadow-lg"
               >
                 Previous
               </button>
               <button
                 onClick={() => setOffset(offset + limit)}
                 disabled={!data.next}
-                className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+                className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50 hover:bg-blue-400 hover:text-white hover:shadow-lg"
               >
                 Next
               </button>
