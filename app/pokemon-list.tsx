@@ -43,7 +43,6 @@ export default function ClientPokemonList({
     setLimit(newLimit);
     setOffset(0);
   };
-  console.log(data);
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
@@ -83,7 +82,7 @@ export default function ClientPokemonList({
               return (
                 <div
                   key={pokemon.name}
-                  className="bg-white border rounded-xl shadow-sm p-4 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl text-center capitalize"
+                  className="bg-white border rounded-xl shadow-sm p-4 hover:shadow-lg transition-all duration-500 ease-in-out transform hover:scale-105 hover:shadow-2xl text-center capitalize"
                 >
                   <img
                     src={imageUrl}
