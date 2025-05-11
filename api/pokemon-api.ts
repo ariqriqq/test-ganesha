@@ -4,7 +4,7 @@ export async function fetchPokemonList(offset = 0, limit = 10) {
       `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
     );
     if (!res.ok) {
-      throw new Error("Failed fetching data Pokemon: ${res.status}");
+      throw new Error(`Failed fetching data Pokemon: ${res.status}`);
     }
 
     return await res.json();
