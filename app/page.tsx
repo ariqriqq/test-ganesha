@@ -1,6 +1,3 @@
-// "use client";
-
-// import { useEffect, useState } from "react";
 import ClientPokemonList from "./pokemon-list";
 
 export default async function PokemonPage() {
