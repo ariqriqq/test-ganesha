@@ -74,6 +74,7 @@ export default function ClientPokemonList({
                     />
                   </div>
                   <footer className="mt-2 w-full border-t pt-2">
+                    <p className="text-xs text-gray-500 font-thin">#{id}</p>
                     <h2 className="text-lg font-semibold">{pokemon.name}</h2>
                   </footer>
                 </div>
