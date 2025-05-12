@@ -26,11 +26,6 @@ export default function ClientPokemonList({
       setLoading(true);
       const result = await fetchPokemonList(offset, limit);
       setData(result);
-      // const res = await fetch(
-      //   `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
-      // );
-      // const json = await res.json();
-      // setData(json);
       setLoading(false);
     };
 
@@ -63,10 +58,7 @@ export default function ClientPokemonList({
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {data.results.map((pokemon) => {
-              // const id = pokemon.url.split("/").filter(Number);
-              const id = Number(pokemon.url.split("/").filter(Number));
-
-              // const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+              const id = Number(pokemon.url.split("/").filter(Number).pop());
               const imageUrl = getPokemonImage(id);
 
               return (
