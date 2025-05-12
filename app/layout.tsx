@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
-// import ShowWelcomeAlert from "./welcome-alert";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +32,10 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
         />
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script
+          src="https://cdn.jsdelivr.net/npm/sweetalert2@11"
+          async
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
